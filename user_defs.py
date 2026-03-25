@@ -171,7 +171,7 @@ async def next_cmd(message:types.message):
         if len(answer_list_elements) == 1:
             list_answers = parsing.wrong_answer_generate_free_form(true_answer)
             for i in list_answers:
-                if i == true_answer:
+                if i == float(true_answer):
                     builder.button(text=str(i), callback_data='47293856')
                 else:
                     builder.button(text=str(i), callback_data='47293156')
