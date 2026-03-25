@@ -1,8 +1,5 @@
 aiogram
-os
 python-dotenv
-asyncio
-BeautifulSoup
+beautifulsoup4
 requests
-random
 pylatexenc
