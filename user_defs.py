@@ -102,18 +102,18 @@ async def next_cmd(message:types.message):
                 builder = InlineKeyboardBuilder()
                 for i in answer_list:
                     if i[0].replace('А', 'a').replace('Б', 'b').replace('В','c').replace('Г', 'd').replace('Д', 'e') == true_answer:
-                        builder.button(text=i[0]+') ' + i[1:], callback_data='true')
+                        builder.button(text=i[0]+') ' + i[1:], callback_data='47293856')
                     else:
-                        builder.button(text=i[0]+') ' + i[1:], callback_data='false')
+                        builder.button(text=i[0]+') ' + i[1:], callback_data='47293156')
                 builder.adjust(1)
                 await message.answer('Обери правильну відповідь!', reply_markup=builder.as_markup())
         elif len(answer_list) == 0 and true_answer in ['a','b','c','d','e']:
             builder=InlineKeyboardBuilder()
             for i in question_4:
                 if i != true_answer:
-                    builder.button(text=i, callback_data='false')
+                    builder.button(text=i, callback_data='47293156')
                 else:
-                    builder.button(text=i, callback_data='true')
+                    builder.button(text=i, callback_data='47293856')
             await message.answer('Оберіть правильну відповідь!', reply_markup=builder.as_markup())
         elif len(answer_list) == 8 or len(answer_list) == 9:
             builder = InlineKeyboardBuilder()
@@ -131,8 +131,8 @@ async def next_cmd(message:types.message):
             wrong_answers = parsing.generate_wrong_answers(true_answer)
             builder = InlineKeyboardBuilder()
             for i in wrong_answers:
-                builder.button(text = i,callback_data='false')
-            builder.button(text = true_answer,callback_data='true')
+                builder.button(text = i,callback_data='47293156')
+            builder.button(text = true_answer,callback_data='47293856')
                 
             await message.answer('Обери правильну відповідь!', reply_markup=builder.as_markup())
     elif answer_list is None:
@@ -142,9 +142,9 @@ async def next_cmd(message:types.message):
             answers_list = parsing.wrong_answer_generate_free_form(true_answer)
             for answer in answers_list:
                 if float(answer) == float(true_answer):
-                    builder.button(text=str(answer),callback_data='true')
+                    builder.button(text=str(answer),callback_data='47293856')
                 else:
-                    builder.button(text=str(answer), callback_data='false')
+                    builder.button(text=str(answer), callback_data='47293156')
             builder.adjust(1)
             await message.answer('Обери правильну відповідь!', reply_markup=builder.as_markup()) 
         elif len(true_answers_list) ==2:
@@ -153,9 +153,9 @@ async def next_cmd(message:types.message):
                 answer_list = parsing.wrong_answer_generate_free_form(true_answer)
                 for answer in answer_list:
                     if float(answer) == float(true_answer):
-                        builder.button(text=answer, callback_data='true')
+                        builder.button(text=answer, callback_data='47293856')
                     else:
-                        builder.button(text=answer, callback_data='false')
+                        builder.button(text=answer, callback_data='47293156')
 
     elif len(answer_list) == 0:
         builder = InlineKeyboardBuilder()
@@ -163,9 +163,9 @@ async def next_cmd(message:types.message):
         if len(answer_list_elements) == 1:
             for i in question_4:
                 if i == true_answer:
-                    builder.button(text=i, callback_data='true')
+                    builder.button(text=i, callback_data='47293856')
                 else:
-                    builder.button(text=i, callback_data='false')
+                    builder.button(text=i, callback_data='47293156')
                 builder.adjust(2)
             await message.answer('Оберіть правильну відповідь!', reply_markup=builder.as_markup())
         else:
@@ -175,14 +175,14 @@ async def next_cmd(message:types.message):
             answers.sort()
             for answer in answers:
                 if answer == true_answer:
-                    builder.button(text=answer, callback_data='true')
+                    builder.button(text=answer, callback_data='47293856')
                 else:
-                    builder.button(text=answer, callback_data='false')
+                    builder.button(text=answer, callback_data='47293156')
             await message.answer('Обери відповідь!', reply_markup=builder.as_markup())
             
 
 
-@rt_users.callback_query(F.data=='true')
+@rt_users.callback_query(F.data=='47293856')
 async def true_answ(callback:types.CallbackQuery):
     builder = InlineKeyboardBuilder()
     
@@ -191,7 +191,7 @@ async def true_answ(callback:types.CallbackQuery):
     await callback.answer('')
 
 
-@rt_users.callback_query(F.data=='false')
+@rt_users.callback_query(F.data=='47293156')
 async def false_answ(callback:types.CallbackQuery):
     builder = InlineKeyboardBuilder()
     builder.button(text='Подивись пояснення!', callback_data='explanation')
