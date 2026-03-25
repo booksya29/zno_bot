@@ -27,17 +27,17 @@ async def subject_button(callback: types.CallbackQuery):
     builder.button(text='Налаштування')
     await callback.message.answer(f'Чудово. Ви обрали предмет: {subject}', reply_markup=builder.as_markup(resize_keyboard=True))
     await callback.answer('Обрано!')
-    with open('System\\stats.json', 'rt', encoding='utf-8') as f:
+    with open('System/stats.json', 'rt', encoding='utf-8') as f:
         read = json.load(f)
     read[str(callback.from_user.id)]['cur_subject'] = subject
-    with open('System\\stats.json', 'wt', encoding='utf-8') as f:
+    with open('System/stats.json', 'wt', encoding='utf-8') as f:
         json.dump(read, f)
 
 
 
 @rt_users.callback_query(F.data == 'stats')
 async def stats_cmd(callback: types.callback_query):
-    with open('System\\stats.json', 'rt', encoding='utf-8') as f:
+    with open('System/stats.json', 'rt', encoding='utf-8') as f:
         read = json.load(f)[str(callback.from_user.id)]
         if read['all_questions'] > 0:
             await callback.message.answer(f'Ваша статистика: \nВи відповіли на {read['all_questions']} запитань. \nЗ яких неправильно: {dict(read['wrong_answers'])} питань\nВідсоток правильних:{(int(read['all_questions']) - len(read['wrong_answers'].values())/int(read['all_questions'])) * 100}%')
@@ -61,10 +61,10 @@ async def next_cmd(message:types.message):
     converter = LatexNodes2Text()
     chat_id = message.from_user.id
     soup, id = parsing.get_soup_file(chat_id)
-    with open('System\\stats.json', 'rt') as f:
+    with open('System/stats.json', 'rt') as f:
         read = json.load(f)
         read[str(chat_id)]['cur_id'] = int(id)
-    with open('System\\stats.json', 'wt') as w:
+    with open('System/stats.json', 'wt') as w:
         json.dump(read,w)
     if soup == None:
         builder = InlineKeyboardBuilder()
@@ -198,7 +198,7 @@ async def false_answ(callback:types.CallbackQuery):
     await callback.message.answer('Неправильна відповідь.', reply_markup=builder.as_markup())
     await callback.answer('')
     chat_id = callback.from_user.id
-    with open('System\\stats.json', 'rt', encoding='utf-8') as f:
+    with open('System/stats.json', 'rt', encoding='utf-8') as f:
         read = json.load(f)
         cur_id = read[str(chat_id)]['cur_id']
         cur_subject = read[str(chat_id)]['cur_subject']
@@ -207,7 +207,7 @@ async def false_answ(callback:types.CallbackQuery):
     except KeyError:
         read[str(chat_id)]['wrong_answers'][cur_subject] = []
         read[str(chat_id)]['wrong_answers'][cur_subject].append(cur_id)
-    with open('System\\stats.json', 'wt', encoding='utf-8') as f:
+    with open('System/stats.json', 'wt', encoding='utf-8') as f:
         json.dump(read,f)
 @rt_users.callback_query(F.data == 'explanation')
 async def explanation_print(callback: types.CallbackQuery):

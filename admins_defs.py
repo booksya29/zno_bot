@@ -7,7 +7,7 @@ rt_admin = Router()
 
 @rt_admin.message(Command('global_stats'))
 async def global_stats_cmd(message: types.message):
-    with open('System\\admins.json') as f:
+    with open('System/admins.json') as f:
         admins = json.load(f)
 
     if message.from_user.id in admins:

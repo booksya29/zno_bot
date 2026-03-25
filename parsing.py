@@ -6,7 +6,7 @@ from random import randint
 from pylatexenc.latex2text import LatexNodes2Text
 
 def get_soup_file(id):
-    with open('System\\stats.json', 'rt', encoding='utf-8') as f:
+    with open('System/stats.json', 'rt', encoding='utf-8') as f:
         read = json.load(f)
         cur_subject = read[str(id)]['cur_subject']
         if cur_subject == None:
@@ -21,7 +21,7 @@ def get_soup_file(id):
             print(f'Немає підключення. Помилка: {conn.status_code}')
         soup = BeautifulSoup(conn.text, 'lxml')
         read[str(id)]['all_questions'] += 1
-        with open('System\\stats.json', 'wt', encoding='utf-8') as f:
+        with open('System/stats.json', 'wt', encoding='utf-8') as f:
             json.dump(read, f)
         return soup, random_task
 
@@ -105,7 +105,7 @@ def wrong_answer_generate_free_form(correct):
     return wrong_list
 
 def get_explanation(id):
-    with open('System\\stats.json', 'rt', encoding='utf-8') as f:
+    with open('System/stats.json', 'rt', encoding='utf-8') as f:
         cur_stats = json.load(f)[str(id)]
     url_head = subjects[cur_stats['cur_subject']]['url']
     url = url_head + str(cur_stats['cur_id'])
