@@ -160,6 +160,14 @@ async def next_cmd(message:types.message):
     elif len(answer_list) == 0:
         builder = InlineKeyboardBuilder()
         answer_list_elements = list(true_answer.split(';'))
+        if true_answer is 'a' or true_answer == 'b' or true_answer == 'c' or true_answer == 'd' or true_answer == 'e':
+            builder = InlineKeyboardBuilder()
+            for i in question_4:
+                if i == true_answer:
+                    builder.button(text=i, callback_data='47293856')
+                else:
+                    builder.button(text=i, callback_data='47293156')
+                await message.answer('Обери відповідь!', reply_markup=builder.as_markup())
         if len(answer_list_elements) == 1:
             list_answers = parsing.wrong_answer_generate_free_form(true_answer)
             for i in list_answers:
