@@ -228,7 +228,7 @@ async def explanation_print(callback: types.CallbackQuery):
         await callback.message.answer(text_exp)
         if img_exp:
             for i in img_exp:
-                await callback.answer_photo(photo=i)
+                await callback.message.answer_photo(photo=i)
     else:
         await callback.message.answer('На жаль, пояснення для цього питання на сайті немає! :(')
     await callback.answer('')
