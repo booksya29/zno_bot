@@ -1,0 +1,9 @@
+aiogram
+json
+os
+python-dotenv
+asyncio
+BeautifulSoup
+requests
+random
+pylatexenc
