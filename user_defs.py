@@ -146,8 +146,9 @@ async def next_cmd(message:types.message):
                 else:
                     builder.button(text=str(answer), callback_data='47293156')
             builder.adjust(1)
-            await message.answer('Обери правильну відповідь!', reply_markup=builder.as_markup()) 
-        elif len(true_answers_list) ==2:
+            await message.answer('Обери правильну відповідь!', reply_markup=builder.as_markup())
+        true_answers_list = true_answer.split(';')
+        if len(true_answers_list) ==2:
             builder = InlineKeyboardBuilder()
             for true_answer in true_answers_list:
                 answer_list = parsing.wrong_answer_generate_free_form(true_answer)
@@ -179,7 +180,7 @@ async def next_cmd(message:types.message):
             await message.answer('Оберіть правильну відповідь!', reply_markup=builder.as_markup())
         else:
             builder = InlineKeyboardBuilder()
-            answers = parsing.generate_wrong_answers(true_answer)
+            answers = parsing.wrong_answer_generate_free_form(true_answer)
             answers.append(true_answer)
             answers.sort()
             for answer in answers:
