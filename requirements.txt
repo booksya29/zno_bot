@@ -1,5 +1,4 @@
 aiogram
-json
 os
 python-dotenv
 asyncio
