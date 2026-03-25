@@ -167,7 +167,7 @@ async def next_cmd(message:types.message):
                     builder.button(text=i, callback_data='47293856')
                 else:
                     builder.button(text=i, callback_data='47293156')
-                await message.answer('Обери відповідь!', reply_markup=builder.as_markup())
+            await message.answer('Обери відповідь!', reply_markup=builder.as_markup())
         if len(answer_list_elements) == 1:
             list_answers = parsing.wrong_answer_generate_free_form(true_answer)
             for i in list_answers:
