@@ -161,7 +161,8 @@ async def next_cmd(message:types.message):
         builder = InlineKeyboardBuilder()
         answer_list_elements = list(true_answer.split(';'))
         if len(answer_list_elements) == 1:
-            for i in question_4:
+            list_answers = parsing.wrong_answer_generate_free_form(true_answer)
+            for i in list_answers:
                 if i == true_answer:
                     builder.button(text=i, callback_data='47293856')
                 else:
