@@ -161,7 +161,7 @@ async def next_cmd(message:types.message):
     elif len(answer_list) == 0:
         builder = InlineKeyboardBuilder()
         answer_list_elements = list(true_answer.split(';'))
-        if true_answer is 'a' or true_answer == 'b' or true_answer == 'c' or true_answer == 'd' or true_answer == 'e':
+        if true_answer == 'a' or true_answer == 'b' or true_answer == 'c' or true_answer == 'd' or true_answer == 'e':
             builder = InlineKeyboardBuilder()
             for i in question_4:
                 if i == true_answer:
