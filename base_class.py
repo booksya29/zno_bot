@@ -41,7 +41,7 @@ class Father_task():
     def get_task_type(self):
         q_test = self.soup.find('form', class_='q-test')
         self.task_type = q_test.find('div', class_='description').find('a').text
-        self.true_answer = q_test.find('input', name='result').get('value')
+        self.true_answer = q_test.find('input', attrs={'name': 'result'}).get('value')
     
     def get_current_subject(self):
         f_path = os.path.join('System', 'stats.json')
