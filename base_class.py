@@ -4,7 +4,7 @@ import os, json
 from random import randint
 from System.subject_list import subjects
 
-from playwright.sync_api import sync_playwright
+from playwright.async_api import async_playwright
 class Father_task():
     def __init__(self, chat_id):
         #Відносяться до питання
@@ -67,10 +67,11 @@ class Father_task():
         return obj
 
 
-    def get_task_photo(self):
-        with sync_playwright() as playwright:
-            browser = playwright.chromium.launch()
-            context = browser.new_context()
-            page = context.new_page()
-            page.goto(self.url)
-            self.photo = page.locator('form[class="q-test"]').screenshot()
+    async def get_task_photo(self):
+        async with async_playwright() as playwright:
+            browser = await playwright.chromium.launch()
+            context = await browser.new_context()
+            page = await context.new_page()
+            await page.goto(self.url)
+            self.photo = await page.locator('form[class="q-test"]').screenshot()
+            await browser.close()

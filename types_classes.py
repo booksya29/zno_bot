@@ -16,7 +16,7 @@ class que_cor_1(Father_task):
             else:
                 builder.button(text=i, callback_data='47293156')
         loading_msg = await message.answer(text='Починаю завантажувати фото...')
-        self.get_task_photo()
+        await self.get_task_photo()
         await loading_msg.delete()
         await message.answer_photo(photo=types.BufferedInputFile(file = self.photo, filename = 'task.png'), caption='Оберіть правильну відповідь!', reply_markup=builder.as_markup())
 
@@ -33,7 +33,7 @@ class free_form_que_1(Father_task):
             else:
                 builder.button(text = str(i), callback_data='47293156')
         load_message = await message.answer(text='Починаю завантажувати фото...')
-        self.get_task_photo()
+        await self.get_task_photo()
         await load_message.delete()
         await message.answer_photo(photo=types.BufferedInputFile(file=self.photo, filename='task.png'), caption='Оберіть правильну відповідь!', reply_markup=builder.as_markup())
 
@@ -51,6 +51,6 @@ class sequence_que(Father_task):
             else:
                 builder.button(text=str(i), callback_data='47293156')
         message_load = await message.answer(text='Починаю завантажувати фото...')
-        self.get_task_photo()
+        await self.get_task_photo()
         await message_load.delete()
         await message.answer_photo(photo=types.BufferedInputFile(file=self.photo, filename='task.png'), caption= 'Оберіть правильну відповідь!', reply_markup=builder.as_markup())
