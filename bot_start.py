@@ -11,7 +11,7 @@ dotenv.load_dotenv(dotenv.find_dotenv())
 token = os.getenv('TOKEN')
 bot = Bot(token=token)
 dp = Dispatcher()
-dp.include_routers(rt_admin, rt_users)
+dp.include_routers(rt_users)
 
 @dp.message(CommandStart())
 async def start_cmd(message:types.message):
