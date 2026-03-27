@@ -40,18 +40,33 @@ class Father_task():
 
     def get_task_type(self):
         q_test = self.soup.find('form', class_='q-test')
-        desc_text = q_test.find('div', class_='description').get_text()
-        print(f'[DESC_TEXT]: "{desc_text}"')
         known_types = [
             'Завдання з вибором однієї правильної відповіді',
             'Завдання відкритої форми з короткою відповіддю (1 вид)',
             'Завдання на встановлення відповідності (логічні пари)',
         ]
+
+        # Шукаємо тип по всій сторінці
+        full_text = self.soup.get_text()
         self.task_type = None
         for t in known_types:
-            if t in desc_text:
+            if t in full_text:
                 self.task_type = t
                 break
+
+        if self.task_type is None:
+            # Дебаг: дивимось заголовки та title сторінки
+            title = self.soup.title.text if self.soup.title else 'NO TITLE'
+            h1 = self.soup.find('h1')
+            h1_text = h1.get_text(strip=True) if h1 else 'NO H1'
+            h2 = self.soup.find('h2')
+            h2_text = h2.get_text(strip=True) if h2 else 'NO H2'
+            print(f'[TITLE]: "{title}"')
+            print(f'[H1]: "{h1_text}"')
+            print(f'[H2]: "{h2_text}"')
+            print(f'[URL]: "{self.url}"')
+            print(f'[НЕВІДОМИЙ ТИП]: "{self.task_type}"')
+
         self.true_answer = q_test.find('input', attrs={'name': 'result'}).get('value')
     
     def get_current_subject(self):
