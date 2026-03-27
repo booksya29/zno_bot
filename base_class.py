@@ -41,6 +41,7 @@ class Father_task():
     def get_task_type(self):
         q_test = self.soup.find('form', class_='q-test')
         desc_text = q_test.find('div', class_='description').get_text()
+        print(f'[DESC_TEXT]: "{desc_text}"')
         known_types = [
             'Завдання з вибором однієї правильної відповіді',
             'Завдання відкритої форми з короткою відповіддю (1 вид)',
