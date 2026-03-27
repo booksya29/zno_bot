@@ -62,6 +62,9 @@ async def next_cmd(message: types.Message):
     task = Father_task(chat_id)
     task.parsing()
     task =task.class_select()
+    if task is None:
+        await message.answer('Цей тип завдання поки не підтримується. Спробуй ще раз!')
+        return
     await task.answer_question_callback(message)
 
 

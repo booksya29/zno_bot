@@ -56,6 +56,9 @@ class Father_task():
             obj = free_form_que_1(self.chat_id)
         elif self.task_type == 'Завдання на встановлення відповідності (логічні пари)':
             obj = sequence_que(self.chat_id)
+        else:
+            print(f'[НЕВІДОМИЙ ТИП]: "{self.task_type}"')
+            return None
         obj.soup = self.soup
         obj.url = self.url
         obj.task_type = self.task_type
