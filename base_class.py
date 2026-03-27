@@ -40,7 +40,17 @@ class Father_task():
 
     def get_task_type(self):
         q_test = self.soup.find('form', class_='q-test')
-        self.task_type = q_test.find('div', class_='description').find('a').text
+        desc_text = q_test.find('div', class_='description').get_text()
+        known_types = [
+            'Завдання з вибором однієї правильної відповіді',
+            'Завдання відкритої форми з короткою відповіддю (1 вид)',
+            'Завдання на встановлення відповідності (логічні пари)',
+        ]
+        self.task_type = None
+        for t in known_types:
+            if t in desc_text:
+                self.task_type = t
+                break
         self.true_answer = q_test.find('input', attrs={'name': 'result'}).get('value')
     
     def get_current_subject(self):
