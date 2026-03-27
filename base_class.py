@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import os, json
 from random import randint
 from System.subject_list import subjects
-from types_classes import que_cor_1, free_form_que_1, sequence_que
+
 from playwright.sync_api import sync_playwright
 class Father_task():
     def __init__(self, chat_id):
@@ -49,6 +49,7 @@ class Father_task():
             self.current_subject = json.load(f)[str(self.chat_id)]['cur_subject']
     
     def class_select(self):
+        from types_classes import que_cor_1, free_form_que_1, sequence_que
         if self.task_type == 'Завдання з вибором однієї правильної відповіді':
             obj = que_cor_1(self.chat_id)
         elif self.task_type == 'Завдання відкритої форми з короткою відповіддю (1 вид)':
