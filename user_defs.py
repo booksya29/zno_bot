@@ -37,11 +37,13 @@ async def subject_button(callback: types.CallbackQuery):
 
 
 @rt_users.callback_query(F.data == 'stats')
-async def stats_cmd(callback: types.callback_query):
+async def stats_cmd(callback: types.CallbackQuery):
     with open(os.path.join('System', 'stats.json'), 'rt', encoding='utf-8') as f:
         read = json.load(f)[str(callback.from_user.id)]
         if read['all_questions'] > 0:
-            await callback.message.answer(f'Ваша статистика: \nВи відповіли на {read['all_questions']} запитань. \nЗ яких неправильно: {dict(read['wrong_answers'])} питань\nВідсоток правильних:{(int(read['all_questions']) - len(read['wrong_answers'].values())/int(read['all_questions'])) * 100}%')
+            wrong_total = sum(len(v) for v in read['wrong_answers'].values())
+            percent = round((int(read['all_questions']) - wrong_total) / int(read['all_questions']) * 100, 1)
+            await callback.message.answer(f'Ваша статистика: \nВи відповіли на {read["all_questions"]} запитань. \nЗ яких неправильно: {wrong_total} питань\nВідсоток правильних: {percent}%')
             await callback.answer('')
         else:
             await callback.message.answer('На жаль, ви ще не пройшли жодного тесту.\nСтатистика не зібрана')
@@ -61,10 +63,17 @@ async def next_cmd(message: types.Message):
     chat_id = message.from_user.id
     task = Father_task(chat_id)
     task.parsing()
-    task =task.class_select()
+    task = task.class_select()
     if task is None:
         await message.answer('Цей тип завдання поки не підтримується. Спробуй ще раз!')
         return
+    # Зберігаємо cur_id для пояснень та статистики
+    with open(os.path.join('System', 'stats.json'), 'rt', encoding='utf-8') as f:
+        stats = json.load(f)
+    stats[str(chat_id)]['cur_id'] = task.number_task
+    stats[str(chat_id)]['all_questions'] = stats[str(chat_id)].get('all_questions', 0) + 1
+    with open(os.path.join('System', 'stats.json'), 'wt', encoding='utf-8') as f:
+        json.dump(stats, f)
     await task.answer_question_callback(message)
 
 

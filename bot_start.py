@@ -22,14 +22,10 @@ async def start_cmd(message:types.message):
     user_id = message.from_user.id
     with open(os.path.join('System', 'stats.json'), 'rt', encoding='utf-8') as f:
         read = json.load(f)
-        if str(user_id) in read:
-            return
-        else:
-            with open(os.path.join('System', 'stats.json'), 'rt', encoding='utf-8') as f:
-                read = json.load(f)
-                read[user_id] = {'wrong_answers':{}, 'cur_subject':None, 'all_questions':0, 'cur_id':None, 'cur_answer':None}
-            with open(os.path.join('System', 'stats.json'), 'wt', encoding='utf-8') as f:
-                json.dump(read, f)                
+    if str(user_id) not in read:
+        read[str(user_id)] = {'wrong_answers':{}, 'cur_subject':None, 'all_questions':0, 'cur_id':None, 'cur_answer':None}
+        with open(os.path.join('System', 'stats.json'), 'wt', encoding='utf-8') as f:
+            json.dump(read, f)
 
 
 
